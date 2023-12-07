@@ -45,5 +45,24 @@ class SatellitesViewModel @Inject constructor(
         }.launchIn(viewModelScope)
     }
 
+    private fun getSearchSatellites(search : String){
+        job?.cancel()
+        job = satelliteUseCases.getSearchSatellite.executeGetSearchSatellites(search).onEach {
+            delay(500)
+            when(it){
+                is Resource.Loading -> {
+                    _state.value = SatellitesState(isLoading = true)
+                }
 
+                is Resource.Success -> {
+                    _state.value = SatellitesState(satellites = it.data ?: emptyList())
+                }
+
+                is Resource.Error -> {
+                    _state.value = SatellitesState(error = it.message ?: "Error")
+                }
+            }
+        }.launchIn(viewModelScope)
+
+    }
 }
