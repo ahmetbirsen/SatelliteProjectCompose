@@ -65,4 +65,13 @@ class SatellitesViewModel @Inject constructor(
         }.launchIn(viewModelScope)
 
     }
+    fun onEvent(event: SatellitesEvent) {
+        when(event){
+            is SatellitesEvent.Search -> {
+                getSearchSatellites(event.searchString)
+            }
+        }
+    }
+
+
 }
