@@ -53,4 +53,12 @@ class FakeSatelliteRepository : SatelliteRepository {
     override suspend fun getSearchSatellites(search: String): List<SatelliteDtoItem> {
         return satellites.filter { it.name.contains(search, ignoreCase = true) }
     }
+
+    override suspend fun getSatelliteDetail(satelliteId: Int): SatelliteDetailDto? {
+        return satelliteDetail
+    }
+
+    override suspend fun getSatellitePositions(satelliteId: String): SatellitePosition? {
+        return satellitePositions
+    }
 }
