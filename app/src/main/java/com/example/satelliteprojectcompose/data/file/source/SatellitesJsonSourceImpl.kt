@@ -23,7 +23,6 @@ class SatellitesJsonSourceImpl(
                 satellitesList
             }
         } catch (e: Exception) {
-            println("Error while getting satellites: ${e.message}")
             emptyList()
         }
     }
@@ -46,7 +45,6 @@ class SatellitesJsonSourceImpl(
                 }
             satelliteDetailList.find { it.id == id }
         } catch (e: Exception) {
-            println("Error while getting satellite detail: ${e.message}")
             null
         }
     }
@@ -62,7 +60,6 @@ class SatellitesJsonSourceImpl(
             }
             satellitePosition ?: SatellitePosition(id = 0, positions = emptyList())
         } catch (e: Exception) {
-            println("Error while getting satellite positions: ${e.message}")
             SatellitePosition(id = 0, positions = emptyList())
         }
     }

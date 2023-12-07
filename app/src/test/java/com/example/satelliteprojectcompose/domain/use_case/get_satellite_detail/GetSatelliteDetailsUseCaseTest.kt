@@ -26,7 +26,6 @@ class GetSatelliteDetailsUseCaseTest {
     @Test
     fun `executeGetSatelliteDetails emits loading state and then success state with details`() =
         testDispatcher.runBlockingTest {
-            // Arrange
             val satelliteId = 1
             val satelliteDetail = SatelliteDetailDto(
                 id = satelliteId,
@@ -38,7 +37,6 @@ class GetSatelliteDetailsUseCaseTest {
 
             fakeSatelliteRepository.setSatelliteDetail(satelliteDetail)
 
-            // Act
             var loadingCount = 0
             var successCount = 0
             getSatelliteDetailsUseCase.executeGetSatelliteDetails(satelliteId).collect {
@@ -49,7 +47,6 @@ class GetSatelliteDetailsUseCaseTest {
                 }
             }
 
-            // Assert
             Truth.assertThat(loadingCount).isEqualTo(1)
             Truth.assertThat(successCount).isEqualTo(1)
         }
@@ -57,10 +54,8 @@ class GetSatelliteDetailsUseCaseTest {
     @Test
     fun `executeGetSatelliteDetails emits loading state and then error state when details retrieval fails`() =
         testDispatcher.runBlockingTest {
-            // Arrange
             val satelliteId = 1
 
-            // Act
             var loadingCount = 0
             var errorCount = 0
             getSatelliteDetailsUseCase.executeGetSatelliteDetails(satelliteId).collect {
@@ -71,7 +66,6 @@ class GetSatelliteDetailsUseCaseTest {
                 }
             }
 
-            // Assert
             Truth.assertThat(loadingCount).isEqualTo(1)
             Truth.assertThat(errorCount).isEqualTo(1)
         }

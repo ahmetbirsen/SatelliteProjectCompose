@@ -18,7 +18,7 @@ interface SatellitesDao {
 
     //For satellite positions
     @Query("SELECT * FROM SATELLITE_POSITION WHERE id = :satelliteId LIMIT 1")
-    suspend fun getSatellitePositions(satelliteId: String): SatellitePosition?
+    suspend fun getSatellitePositions(satelliteId: String): SatellitePosition
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertSatellitePositions(satellitePositions: SatellitePosition)
     @Delete

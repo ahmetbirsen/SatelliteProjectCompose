@@ -78,14 +78,13 @@ class SatelliteDetailScreenTest {
 
     @Test
     fun showProgressWhenSatelliteDetailScreenLoading() {
-        SatelliteDetailState(true)
+        SatelliteDetailState(true, positions = emptyList())
         composeRule.onNodeWithTag(TestTags.SATELLITE_DETAIL_PROGRESS)
             .assertExists()
     }
 
     @Test
     fun testSatelliteDetailUIElements() {
-        // Detay sayfasındaki temel UI elemanlarının varlığını kontrol et
         composeRule.onNodeWithTag(TestTags.SATELLITE_DETAIL_PROGRESS).assertIsDisplayed()
         composeRule.onNodeWithText("Starlink-1").assertIsDisplayed()
         composeRule.onNodeWithText("Height/Mass: ").assertIsDisplayed()
@@ -99,7 +98,7 @@ class SatelliteDetailScreenTest {
 
     @Test
     fun showErrorMessageWhenSatelliteDetailGetsErro() {
-        SatelliteDetailState(false, error = "No detail found")
+        SatelliteDetailState(false, error = "No detail found", positions = emptyList())
         composeRule.onNodeWithTag(TestTags.SATELLITE_DETAIL_PROGRESS)
             .assertExists()
     }

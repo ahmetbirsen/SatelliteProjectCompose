@@ -20,7 +20,7 @@ class SatelliteRoomSourceImpl (
         satellitesDao.deleteSatelliteDetails(satelliteDetail)
     }
 
-    override suspend fun getSatellitePositions(satelliteId: String): SatellitePosition? {
+    override suspend fun getSatellitePositions(satelliteId: String): SatellitePosition{
         return satellitesDao.getSatellitePositions(satelliteId)
     }
 

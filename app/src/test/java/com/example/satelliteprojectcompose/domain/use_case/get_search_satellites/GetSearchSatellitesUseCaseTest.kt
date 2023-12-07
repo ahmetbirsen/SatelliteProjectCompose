@@ -30,7 +30,6 @@ class GetSearchSatellitesUseCaseTest {
     @Test
     fun `executeGetSearchSatellites emits loading state and then success state with search results`() =
         testDispatcher.runBlockingTest {
-            // Arrange
             val searchQuery = "Falcon"
             val searchResult = listOf(
                 SatelliteDtoItem(active = true, id = 1, name = "Starlink"),

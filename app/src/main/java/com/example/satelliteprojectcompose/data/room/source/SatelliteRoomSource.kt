@@ -9,7 +9,7 @@ interface SatelliteRoomSource{
     suspend fun insertSatelliteDetail(satelliteDetail: SatelliteDetailDto)
     suspend fun deleteSatelliteDetails(satelliteDetail: SatelliteDetailDto)
 
-    suspend fun getSatellitePositions(satelliteId: String) : SatellitePosition?
+    suspend fun getSatellitePositions(satelliteId: String) : SatellitePosition
     suspend fun insertSatellitePositions(satellitePosition: SatellitePosition)
     suspend fun deleteSatellitePositions(satellitePosition: SatellitePosition)
 

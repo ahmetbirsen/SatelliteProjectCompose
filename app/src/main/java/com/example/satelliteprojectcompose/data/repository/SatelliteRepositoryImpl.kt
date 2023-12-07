@@ -36,7 +36,7 @@ class SatelliteRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getSatellitePositions(satelliteId: String): SatellitePosition? {
+    override suspend fun getSatellitePositions(satelliteId: String): SatellitePosition {
         val cachedPositions = satelliteDetailRoomSource.getSatellitePositions(satelliteId)
         return if (cachedPositions != null) {
             cachedPositions

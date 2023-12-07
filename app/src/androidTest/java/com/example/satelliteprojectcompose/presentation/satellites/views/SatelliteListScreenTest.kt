@@ -83,7 +83,6 @@ class SatelliteListScreenTest {
 
         @Test
         fun testSatelliteScreenUIElements() {
-            // UI elemanlarının varlığını kontrol et
             composeRule.onNodeWithTag(TestTags.SATELLITE_SEARCH_BAR_COMPONENT).assertExists()
             composeRule.onNodeWithTag(TestTags.SATELLITE_SEARCH_BAR_COMPONENT).assertIsDisplayed()
         }
@@ -91,7 +90,6 @@ class SatelliteListScreenTest {
 
         @Test
         fun testSearchFunctionality() {
-            // Arama çubuğuna bir sorgu gir
             composeRule.onNodeWithTag(TestTags.SATELLITE_SEARCH_BAR_COMPONENT)
                 .performTextInput("Dragon-1")
         }

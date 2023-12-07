@@ -12,16 +12,12 @@ class GetSatellitePositionsUseCase @Inject constructor(
     private val satelliteRepository: SatelliteRepository
 ) {
 
-    fun executeGetSatellitePositions(satelliteId : String) : Flow<Resource<SatellitePosition?>> = flow{
-        println("executeGetSatellitePositions :::::")
+    fun executeGetSatellitePositions(satelliteId : String) : Flow<Resource<SatellitePosition>> = flow{
         try {
             emit(Resource.Loading())
             val satellitePositions = satelliteRepository.getSatellitePositions(satelliteId)
-            println("pozisyon list : $satellitePositions")
             emit(Resource.Success(satellitePositions))
         }catch (e : IOException){
-            println("pozisyon list error : ${e.message}")
-
             emit(Resource.Error(e.message ?: ""))
         }
     }

@@ -10,5 +10,5 @@ interface SatelliteRepository {
     suspend fun getSearchSatellites(search : String) : List<SatelliteDtoItem>
 
     suspend fun getSatelliteDetail(satelliteId : Int) : SatelliteDetailDto?
-    suspend fun getSatellitePositions(satelliteId : String) : SatellitePosition?
+    suspend fun getSatellitePositions(satelliteId : String) : SatellitePosition
 }

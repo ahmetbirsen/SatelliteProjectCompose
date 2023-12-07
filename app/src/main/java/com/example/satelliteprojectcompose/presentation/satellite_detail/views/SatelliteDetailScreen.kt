@@ -6,7 +6,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.satelliteprojectcompose.presentation.satellite_detail.SatelliteDetailViewModel
 import com.example.satelliteprojectcompose.util.TestTags
+import kotlinx.coroutines.delay
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -27,10 +28,20 @@ fun SatelliteDetailScreen(
     satelliteDetailViewModel: SatelliteDetailViewModel = hiltViewModel()
 ) {
     val state = satelliteDetailViewModel.state.value
-    var positionState = satelliteDetailViewModel.positionsState.value
+    var positionsState = satelliteDetailViewModel.positionsState.value
 
 
+    var currentIndex by remember { mutableStateOf(0) }
 
+    LaunchedEffect(true) {
+        val positionsSize = positionsState.satellitePositions?.positions?.size ?: 0
+        if (positionsSize > 0) {
+            repeat(positionsSize) {
+                delay(1000)
+                currentIndex = (currentIndex + 1) % positionsSize
+            }
+        }
+    }
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -110,19 +121,21 @@ fun SatelliteDetailScreen(
                         color = Color.Black,
                         fontWeight = FontWeight.Bold
                     )
-                    Text(
-                        text = "${it.cost_per_launch}",
-                        textAlign = TextAlign.Center,
-                        color = Color.Black
-                    )
+                    if (state.positions?.isNotEmpty() == true) {
+                        Text(
+                            text = "(${state.positions?.get(currentIndex)?.posX} , ${state.positions?.get(currentIndex)?.posY})",
+                            textAlign = TextAlign.Center,
+                            color = Color.Black
+                        )
+                    } else {
+                        Text(
+                            text = "No positions available",
+                            textAlign = TextAlign.Center,
+                            color = Color.Black
+                        )
+                    }
                 }
             }
-            Text(
-                text = "Position  x: ${positionState.satellitePositions?.positions?.getOrNull(positionState.currentIndex)?.posX ?: "?"} / y: ${positionState.satellitePositions?.positions?.getOrNull(positionState.currentIndex)?.posY ?: "?"}",
-                textAlign = TextAlign.Center,
-                modifier = Modifier.padding(14.dp),
-                color = Color.Black
-            )
         }
         if (state.error.isNotBlank()) {
             Text(

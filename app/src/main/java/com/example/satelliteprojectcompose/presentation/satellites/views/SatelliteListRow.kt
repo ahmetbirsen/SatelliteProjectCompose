@@ -13,6 +13,7 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -36,8 +37,8 @@ fun SatelliteListRow(
             }
             .padding(10.dp),
 
-        horizontalArrangement = Arrangement.Center,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center
     ) {
         Icon(
             modifier = Modifier
@@ -50,13 +51,13 @@ fun SatelliteListRow(
             contentDescription = "Active Icon"
         )
 
-        Spacer(modifier = Modifier.width(24.dp))
+        Spacer(modifier = Modifier.width(30.dp))
 
         Column(
             modifier = Modifier
-                .align(CenterVertically),
+                .fillMaxWidth(),
+            verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
-
         ) {
             Text(
                 text = satellite.name,
@@ -72,7 +73,6 @@ fun SatelliteListRow(
                 color = if (satellite.active) Color.Black else Color.LightGray,
                 textAlign = TextAlign.Center
             )
-
             if (!isLastItem) Divider()
         }
     }

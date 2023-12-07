@@ -21,29 +21,24 @@ import javax.inject.Inject
 @RequiresApi(Build.VERSION_CODES.O)
 @HiltViewModel
 class SatelliteDetailViewModel @Inject constructor(
-    //Bizim için hazır oluşturulan bir yapı. Direkt inject edebiliriz.
     private val stateHandleForSendingValueFromRoute: SavedStateHandle,
     private val satelliteUseCases: SatelliteUseCases,
     private val satelliteJsonSource: SatelliteJsonSource,
     private val satelliteRoomSource: SatelliteRoomSource
 ) : ViewModel() {
 
-    private val _state = mutableStateOf<SatelliteDetailState>(SatelliteDetailState())
+    private val _state = mutableStateOf<SatelliteDetailState>(SatelliteDetailState(positions = emptyList()))
     val state : State<SatelliteDetailState> = _state
 
     private val _positionsState = mutableStateOf<SatellitePositionsState>(SatellitePositionsState())
     val positionsState: State<SatellitePositionsState> = _positionsState
 
-    private val positionUpdateChannel = Channel<String>()
-
-
     init {
         stateHandleForSendingValueFromRoute.get<Int>("satelliteId")?.let {
             viewModelScope.launch {
                 val json = satelliteJsonSource.getSatellitePositions(satelliteId = it.toString())
-                println("json value : ${json.positions}")
                 satelliteRoomSource.insertSatellitePositions(json)
-                println(satelliteRoomSource.getSatellitePositions(it.toString()))
+                getSatellitePosition(it)
             }
             getSatelliteDetail(it)
 
@@ -56,15 +51,35 @@ class SatelliteDetailViewModel @Inject constructor(
         satelliteUseCases.getSatelliteDetail.executeGetSatelliteDetails(satelliteID = satelliteID).onEach {
             when(it){
                 is Resource.Loading -> {
-                    _state.value = SatelliteDetailState(isLoading = true)
+                    _state.value = SatelliteDetailState(isLoading = true,positions = emptyList())
                 }
 
                 is Resource.Success -> {
-                    _state.value = SatelliteDetailState(satellite = it.data)
+                    _state.value = SatelliteDetailState(satellite = it.data, positions = emptyList())
                 }
 
                 is Resource.Error -> {
-                    _state.value = SatelliteDetailState(error = it.message ?: "Error!")
+                    _state.value = SatelliteDetailState(error = it.message ?: "Error!", positions = emptyList())
+                }
+            }
+        }.launchIn(viewModelScope)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun getSatellitePosition(satelliteID : Int){
+        satelliteUseCases.getSatellitePosition.executeGetSatellitePositions(satelliteId = satelliteID.toString()).onEach {
+            when(it){
+                is Resource.Loading -> {
+                    _positionsState.value = SatellitePositionsState(isLoading = true)
+                }
+
+                is Resource.Success -> {
+                    _positionsState.value = SatellitePositionsState(satellitePositions = it.data)
+                }
+
+                is Resource.Error -> {
+
+                    _positionsState.value = SatellitePositionsState(error = it.message ?: "Error!")
                 }
             }
         }.launchIn(viewModelScope)
