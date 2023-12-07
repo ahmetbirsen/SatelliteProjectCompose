@@ -1,8 +1,14 @@
 package com.example.satelliteprojectcompose.dependency_injection
 
 import android.content.Context
+import androidx.room.Room
 import com.example.projectplayground.data.file.source.SatelliteJsonSource
 import com.example.projectplayground.data.file.source.SatellitesJsonSourceImpl
+import com.example.satelliteprojectcompose.data.room.SatellitesDao
+import com.example.satelliteprojectcompose.data.room.SatellitesDatabase
+import com.example.satelliteprojectcompose.data.room.source.SatelliteRoomSource
+import com.example.satelliteprojectcompose.data.room.source.SatelliteRoomSourceImpl
+import com.example.satelliteprojectcompose.util.Constants.DATABASE_NAME
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -33,4 +39,28 @@ object DataModule {
     ): SatelliteJsonSource {
         return SatellitesJsonSourceImpl(context)
     }
+
+    @Provides
+    @Singleton
+    fun provideRoomDataSource(
+        satelliteDao: SatellitesDao
+    ): SatelliteRoomSource =
+        SatelliteRoomSourceImpl(satelliteDao)
+
+    @Provides
+    @Singleton
+    fun provideSatellitesDatabase(
+        @ApplicationContext context: Context
+    ): SatellitesDatabase = Room
+        .databaseBuilder(
+            context,
+            SatellitesDatabase::class.java,
+            DATABASE_NAME
+        )
+        .build()
+
+    @Provides
+    @Singleton
+    fun provideSatelliteDao(satellitesDatabase: SatellitesDatabase): SatellitesDao =
+        satellitesDatabase.satelliteDao()
 }
