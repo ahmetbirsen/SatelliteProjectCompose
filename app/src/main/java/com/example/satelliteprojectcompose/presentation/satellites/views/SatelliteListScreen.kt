@@ -16,6 +16,7 @@ import androidx.navigation.NavController
 import com.example.satelliteprojectcompose.presentation.Screen
 import com.example.satelliteprojectcompose.presentation.satellites.SatellitesEvent
 import com.example.satelliteprojectcompose.presentation.satellites.SatellitesViewModel
+import com.example.satelliteprojectcompose.util.TestTags
 
 @Composable
 fun SatelliteScreen(
@@ -32,8 +33,8 @@ fun SatelliteScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(20.dp)
-//                    .testTag(TestTags.SATELLITE_SEARCH_BAR_COMPONENT),
-                ,onSearch = {
+                    .testTag(TestTags.SATELLITE_SEARCH_BAR_COMPONENT),
+                onSearch = {
                     viewModel.onEvent(SatellitesEvent.Search(it))
                 }
             )
@@ -63,7 +64,7 @@ fun SatelliteScreen(
                     .fillMaxWidth()
                     .padding(14.dp)
                     .align(Alignment.Center)
-//                    .testTag(TestTags.SATELLITE_LIST_ERROR)
+                    .testTag(TestTags.SATELLITE_LIST_ERROR)
             )
         }
 
