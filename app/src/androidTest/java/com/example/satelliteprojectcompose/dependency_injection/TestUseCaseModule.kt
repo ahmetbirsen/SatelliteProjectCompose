@@ -5,6 +5,7 @@ import com.example.projectplayground.domain.use_case.get_search_satellites.GetSe
 import com.example.satelliteprojectcompose.domain.repository.SatelliteRepository
 import com.example.satelliteprojectcompose.domain.use_case.SatelliteUseCases
 import com.example.satelliteprojectcompose.domain.use_case.get_satellite_detail.GetSatelliteDetailsUseCase
+import com.example.satelliteprojectcompose.domain.use_case.get_satellite_positions.GetSatellitePositionsUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,6 +23,7 @@ object TestUseCaseModule {
             getSatellite = GetSatellitesUseCase(repository),
             getSearchSatellite = GetSearchSatellitesUseCase(repository),
             getSatelliteDetail = GetSatelliteDetailsUseCase(repository),
+            getSatellitePosition = GetSatellitePositionsUseCase(repository)
         )
     }
 }
