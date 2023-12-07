@@ -1,4 +1,4 @@
-package com.example.satelliteprojectcompose.ui.theme
+package com.example.satelliteprojectcompose.presentation.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme

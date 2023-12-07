@@ -1,4 +1,4 @@
-package com.example.satelliteprojectcompose
+package com.example.satelliteprojectcompose.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,7 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.satelliteprojectcompose.ui.theme.SatelliteProjectComposeTheme
+import com.example.satelliteprojectcompose.presentation.ui.theme.SatelliteProjectComposeTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
