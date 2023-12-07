@@ -2,7 +2,6 @@ package com.example.satelliteprojectcompose.dependency_injection
 
 import com.example.projectplayground.data.file.source.SatelliteJsonSource
 import com.example.satelliteprojectcompose.data.repository.SatelliteRepositoryImpl
-import com.example.satelliteprojectcompose.data.room.source.SatelliteRoomSource
 import com.example.satelliteprojectcompose.domain.repository.SatelliteRepository
 import dagger.Module
 import dagger.Provides
@@ -17,10 +16,9 @@ object RepositoryModule {
     @Singleton
     @Provides
     fun provideSatelliteRepository(
-        satelliteJsonSource: SatelliteJsonSource,
-        satelliteDetailRoomSource : SatelliteRoomSource
+        satelliteJsonSource: SatelliteJsonSource
     ): SatelliteRepository {
-        return SatelliteRepositoryImpl(satelliteJsonSource,satelliteDetailRoomSource)
+        return SatelliteRepositoryImpl(satelliteJsonSource)
     }
 
 
