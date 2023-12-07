@@ -7,4 +7,6 @@ import com.example.projectplayground.data.dto.SatellitePosition
 
 interface SatelliteRepository {
     suspend fun getSatellites(): List<SatelliteDtoItem>
+    suspend fun getSearchSatellites(search : String) : List<SatelliteDtoItem>
+
 }

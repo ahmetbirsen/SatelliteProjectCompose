@@ -14,4 +14,8 @@ class SatelliteRepositoryImpl @Inject constructor(
         return satellitesJsonSource.getSatellites()
     }
 
+    override suspend fun getSearchSatellites(search: String): List<SatelliteDtoItem> {
+        return satellitesJsonSource.getSearchSatellites(search)
+    }
+
 }
